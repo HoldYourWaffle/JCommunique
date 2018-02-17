@@ -1,0 +1,17 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+sourceCompatibility = targetCompatibility = 1.7
+eclipse.project.name = rootProject.name + '-demo'
+mainClassName = 'org.jcommunique.demos.JCommuniqueDemoLauncher'
+
+dependencies {
+	compile rootProject
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+artifacts { archives sourcesJar }

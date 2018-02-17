@@ -25,7 +25,7 @@ public class QueueManagerDemo {
 			switch (type) {
 			case 0:
 				note = factory.buildIconNotification("IconNotification", "Subtitle",
-						IconUtils.createIcon("/com/demo/exclamation.png", 50, 50));
+						IconUtils.createIcon("/org/jcommunique/demos/exclamation.png", 50, 50));
 				break;
 			case 1:
 				note = factory.buildTextNotification("TextNotification", "Subtitle");
