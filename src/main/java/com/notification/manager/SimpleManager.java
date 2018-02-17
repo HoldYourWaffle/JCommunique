@@ -26,18 +26,19 @@ public class SimpleManager extends NotificationManager {
 
 	private static final int FADE_DELAY = 50; // milliseconds
 
-	{
-		m_screen = Screen.standard();
-		m_fadeEnabled = false;
-		m_fadeTime = Time.seconds(1);
-	}
-
 	public SimpleManager() {
-		m_loc = Location.NORTHEAST;
+		this(Location.NORTHEAST);
 	}
 
 	public SimpleManager(Location loc) {
+      this(loc, Screen.standard());
+   }
+
+	public SimpleManager(Location loc, Screen screen) {
 		m_loc = loc;
+		m_screen = screen;
+		m_fadeEnabled = false;
+		m_fadeTime = Time.seconds(1);
 	}
 
 	/**

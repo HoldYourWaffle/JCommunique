@@ -7,10 +7,13 @@ import java.awt.Toolkit;
 
 import com.notification.Notification;
 import com.notification.NotificationFactory.Location;
+import java.awt.GraphicsConfiguration;
 
 public class Screen {
 	private int m_width;
 	private int m_height;
+	private int m_screenXOffset;
+	private int m_screenYOffset;
 
 	private int m_leftX;
 	private int m_centerX;
@@ -22,49 +25,82 @@ public class Screen {
 
 	private int m_padding;
 
-	private Screen(boolean spanMultipleMonitors, int padding) {
+	private Screen(boolean spanMultipleMonitors, int padding, GraphicsConfiguration gc) {
 		m_padding = padding;
-		setupDimensions(spanMultipleMonitors);
+		setupDimensions(spanMultipleMonitors, gc);
 		calculatePositions();
 	}
 
 	public static Screen standard() {
-		return new Screen(true, 80);
+		return new Screen(true, 80, null);
 	}
 
 	public static Screen withSpan(boolean spanMultipleMonitors) {
-		return new Screen(spanMultipleMonitors, 80);
+		return new Screen(spanMultipleMonitors, 80, null);
 	}
 
 	public static Screen withPadding(int padding) {
-		return new Screen(true, padding);
+		return new Screen(true, padding, null);
 	}
 
 	public static Screen withSpanAndPadding(boolean spanMultipleMonitors, int padding) {
-		return new Screen(spanMultipleMonitors, padding);
+		return new Screen(spanMultipleMonitors, padding, null);
 	}
 
-	private void setupDimensions(boolean spanMultipleMonitors) {
+	public static Screen withSpanAndPaddingAndGraphicsConfiguration(boolean spanMultipleMonitors, int padding, GraphicsConfiguration gc) {
+		return new Screen(spanMultipleMonitors, padding, gc);
+	}
+
+	private void setupDimensions(boolean spanMultipleMonitors, GraphicsConfiguration gc) {
 		if (spanMultipleMonitors) {
-			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			m_width = screenSize.width;
-			m_height = screenSize.height;
+         GraphicsDevice gd;
+         if(gc != null)
+         {
+            gd = gc.getDevice();
+            
+            m_width = gd.getDisplayMode().getWidth();
+            m_height = gd.getDisplayMode().getHeight();
+            
+            m_screenXOffset = gc.getBounds().x;
+            m_screenYOffset = gc.getBounds().y;
+         }
+         else
+         {
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            m_width = screenSize.width;
+            m_height = screenSize.height;
+            m_screenXOffset = 0;
+            m_screenYOffset = 0;
+         }
 
 		} else {
-			GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+         GraphicsDevice gd;
+         if(gc != null)
+         {
+            gd = gc.getDevice();
+            m_screenXOffset = gc.getBounds().x;
+            m_screenYOffset = gc.getBounds().y;
+         }
+         else
+         {
+            gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+            m_screenXOffset = gd.getDefaultConfiguration().getBounds().x;
+            m_screenYOffset = gd.getDefaultConfiguration().getBounds().y;
+         }
+			
 			m_width = gd.getDisplayMode().getWidth();
 			m_height = gd.getDisplayMode().getHeight();
 		}
 	}
 
 	private void calculatePositions() {
-		m_leftX = m_padding;
-		m_centerX = (int) (m_width / 2d);
-		m_rightX = m_width - m_padding;
+		m_leftX = m_padding + m_screenXOffset;
+		m_centerX = (int) (m_width / 2d) + m_screenXOffset;
+		m_rightX = m_width - m_padding + m_screenXOffset;
 
-		m_topY = m_padding;
-		m_centerY = (int) (m_height / 2d);
-		m_bottomY = m_height - m_padding;
+		m_topY = m_padding + m_screenYOffset;
+		m_centerY = (int) (m_height / 2d) + m_screenYOffset;
+		m_bottomY = m_height - m_padding + m_screenYOffset;
 	}
 
 	public int getX(Location loc, Notification note) {
