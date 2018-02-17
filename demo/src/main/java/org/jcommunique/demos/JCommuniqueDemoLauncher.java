@@ -34,7 +34,7 @@ public class JCommuniqueDemoLauncher {
 		try {
 			main = demoClass.getDeclaredMethod("main", String[].class);
 			main.setAccessible(true);
-			if (!main.isAccessible() || !Modifier.isStatic(main.getModifiers())) throw new Error("Invalid main method in "+demoClass.getName());
+			if (!main.canAccess(null) || !Modifier.isStatic(main.getModifiers())) throw new Error("Invalid main method in "+demoClass.getName());
 		} catch (NoSuchMethodException e) { throw new Error("Invalid demo: "+demoClass.getName(), e); }
 		
 		butt.addActionListener(new ActionListener() {

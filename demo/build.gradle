@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'application'
 
-sourceCompatibility = targetCompatibility = 1.7
+sourceCompatibility = targetCompatibility = 1.9
 eclipse.project.name = rootProject.name + '-demo'
 mainClassName = 'org.jcommunique.demos.JCommuniqueDemoLauncher'
 
@@ -15,3 +15,10 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 	from sourceSets.main.allSource
 }
 artifacts { archives sourcesJar }
+
+compileJava {
+	inputs.property('moduleName', moduleName)
+	doFirst {
+		options.compilerArgs = [ '--module-path', classpath.asPath ]
+	}
+}

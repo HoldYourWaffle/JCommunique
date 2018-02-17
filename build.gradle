@@ -2,7 +2,8 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
 
-sourceCompatibility = targetCompatibility = 1.7
+ext.moduleName = 'org.jcommunique'
+sourceCompatibility = targetCompatibility = 1.9
 version = '2.1.0'
 
 repositories {
@@ -32,3 +33,10 @@ artifacts {
 
 task rebuild(dependsOn: ['clean', 'build'])
 build.mustRunAfter clean
+
+compileJava {
+	inputs.property('moduleName', moduleName)
+	doFirst {
+		options.compilerArgs = [ '--module-path', classpath.asPath ]
+	}
+}
