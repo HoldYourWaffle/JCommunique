@@ -2,82 +2,27 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = targetCompatibility = 1.7
 version = '2.1.0'
 
 repositories {
-    jcenter()
+	mavenCentral()
 }
 
 dependencies {
-    testCompile 'junit:junit:4.12'
+	testCompile 'junit:junit:4.12'
 }
 
-sourceSets {
-    main {
-        java {
-            srcDir 'src/main/java'
-        }
-	resources {
-    	    srcDir 'src/main/resources'
-	}
-	output.resourcesDir = "build/classes/main"
-    }
-
-    test {
-        java {
-            srcDir 'src/test/java'
-        }
-    }
-}
-
-test {
-    testLogging {
-     	exceptionFormat = 'full'
-    }
-}
-
-clean {
-	delete "github-release"
-	delete "bintray-release"
-	delete "bin"
-}
-
-task createPom << {
-    pom {
-        project {
-            groupId 'org.jcommunique'
-            artifactId 'JCommunique'
-            version '2.0.0'
-
-            inceptionYear '2015'
-            licenses {
-                license {
-                    name 'The MIT License'
-                    url 'http://opensource.org/licenses/MIT'
-                    distribution 'repo'
-                }
-            }
-        }
-    }.writeTo("pom.xml")
-}
-
-jar {
-    manifest {
-        attributes 'Implementation-Title': 'Gradle Quickstart',
-		'Implementation-Version': version
-    }
-}
+test.testLogging.exceptionFormat = 'full'
 
 task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
+	classifier = 'sources'
+	from sourceSets.main.allSource
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
+	classifier = 'javadoc'
+	from javadoc.destinationDir
 }
 
 artifacts {
