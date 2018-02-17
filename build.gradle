@@ -4,7 +4,7 @@ apply plugin: 'maven'
 
 ext.moduleName = 'org.jcommunique'
 sourceCompatibility = targetCompatibility = 1.9
-version = '2.1.0'
+version = '3.0.0'
 
 repositories {
 	mavenCentral()
