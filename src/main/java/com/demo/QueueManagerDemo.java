@@ -10,6 +10,7 @@ import com.utils.IconUtils;
 import com.utils.Time;
 
 public class QueueManagerDemo {
+	@SuppressWarnings("incomplete-switch")
 	public static void main(String[] args) throws Exception {
 		Platform.instance().setAdjustForPlatform(true);
 

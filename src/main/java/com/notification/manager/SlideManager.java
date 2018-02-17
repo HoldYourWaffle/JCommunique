@@ -31,7 +31,7 @@ public class SlideManager extends NotificationManager {
 	private boolean m_overwrite;
 
 	{
-		m_sliders = new HashMap<SlideDirection, Slider>();
+		m_sliders = new HashMap<>();
 		m_sliders.put(SlideDirection.NORTH, new NorthSlider());
 		m_sliders.put(SlideDirection.SOUTH, new SouthSlider());
 		m_sliders.put(SlideDirection.EAST, new EastSlider());
@@ -39,7 +39,7 @@ public class SlideManager extends NotificationManager {
 		m_standardScreen = Screen.standard();
 		m_noPaddingScreen = Screen.withPadding(0);
 		m_slideSpeed = 300;
-		m_slideStates = new HashMap<Notification, SlideState>();
+		m_slideStates = new HashMap<>();
 		m_overwrite = false;
 	}
 
@@ -127,6 +127,7 @@ public class SlideManager extends NotificationManager {
 		case WEST:
 			m_slideIn = SlideDirection.EAST;
 			break;
+		default: throw new UnsupportedOperationException(m_loc.toString());
 		}
 	}
 

@@ -10,7 +10,7 @@ public class ThemePackage {
 	private Map<Class<?>, Object> m_themes;
 
 	public ThemePackage() {
-		m_themes = new HashMap<Class<?>, Object>();
+		m_themes = new HashMap<>();
 	}
 
 	/**

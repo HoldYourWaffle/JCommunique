@@ -14,7 +14,7 @@ public abstract class NotificationManager {
 	private List<Notification> m_notifications;
 
 	public NotificationManager() {
-		m_notifications = new ArrayList<Notification>();
+		m_notifications = new ArrayList<>();
 	}
 
 	/**

@@ -153,7 +153,7 @@ public class SimpleManager extends NotificationManager {
 		private boolean m_shouldStop;
 
 		public FaderRunnable() {
-			m_faders = new CopyOnWriteArrayList<Fader>();
+			m_faders = new CopyOnWriteArrayList<>();
 			m_shouldStop = false;
 		}
 

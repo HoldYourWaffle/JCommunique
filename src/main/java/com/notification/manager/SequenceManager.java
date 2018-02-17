@@ -18,7 +18,7 @@ public class SequenceManager extends SimpleManager {
 	private Notification m_currentNotification;
 
 	{
-		m_sequence = new ArrayList<NotificationShowTime>();
+		m_sequence = new ArrayList<>();
 	}
 
 	public SequenceManager() {

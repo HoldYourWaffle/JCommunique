@@ -11,7 +11,7 @@ public abstract class Notification {
 	private List<NotificationListener> m_listeners;
 
 	public Notification() {
-		m_listeners = new CopyOnWriteArrayList<NotificationListener>();
+		m_listeners = new CopyOnWriteArrayList<>();
 	}
 
 	/**

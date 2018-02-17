@@ -28,7 +28,7 @@ public final class NotificationFactory {
 	}
 
 	{
-		m_builders = new HashMap<Class<? extends Notification>, NotificationBuilder<? extends Notification>>();
+		m_builders = new HashMap<>();
 		m_builders.put(TextNotification.class, new TextNotificationBuilder());
 		m_builders.put(AcceptNotification.class, new AcceptNotificationBuilder());
 		m_builders.put(IconNotification.class, new IconNotificationBuilder());
